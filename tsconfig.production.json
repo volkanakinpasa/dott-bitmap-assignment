@@ -1,25 +1,12 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
-    "alwaysStrict": true,
-    "charset": "utf-8",
-    "declaration": true,
-    "declarationMap": true,
-    "downlevelIteration": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext"],
     "module": "commonjs",
-    "noImplicitAny": false,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "lib",
-    "pretty": true,
     "rootDir": "src",
+    "outDir": "lib",
     "sourceMap": true,
-    "strict": true,
-    "strictNullChecks": true,
-    "target": "ESNext"
+    "lib": ["ESNext"]
+    // "target": "ESNext"
   },
-  "files": ["./src/index.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

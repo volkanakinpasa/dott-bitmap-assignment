@@ -1,7 +1,7 @@
 env:
   es6: true
   node: true
-extends: '@ridedott/eslint-config'
+parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaVersion: 10
   project: tsconfig.json
