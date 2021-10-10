@@ -1,3 +1,4 @@
+import { Bitmap } from './models/bitmap';
 import { Pixel } from './models/pixel';
 
 export type TestCases = {
@@ -7,3 +8,8 @@ export type TestCases = {
 };
 
 export type PixelDistance = { pixel: Pixel; distance: number };
+
+export type CalculatedBitmapPixelDistance = {
+  bitmap: Bitmap;
+  pixelDistances: Array<PixelDistance>;
+};

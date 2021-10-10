@@ -11,8 +11,6 @@
   </a>
 </p>
 
-> Desc
-
 ### 🏠 [Homepage](https://github.com/volkanakinpasa/dott-bitmap-assignment)
 
 ## Prerequisites
@@ -48,23 +46,23 @@ In the i-th line for each test case, 1<=i<=n, there should be written m integers
 f(i,1),...,f(i,m) separated by single spaces, where f(i,j) is the distance from
 the pixel (i,j) to the nearest white pixel. Example:
 
-Input: 1
+Input:
 
+```shell
+1
 34
-
 0001
-
 0011
-
 0110
+```
 
 Output
 
+```shell
 3210
-
 2100
-
 1001
+```
 
 ## Install
 
@@ -72,10 +70,48 @@ Output
 npm i
 ```
 
-## Run tests
+## Run tests & Print the output
 
 ```sh
 npm run test
+npm run test:coverage
+npm run test:watch
+```
+
+## To compile TS
+
+```sh
+npm run build
+npm run build:ts
+npm run build:watch
+```
+
+## Run in compiled JS and print output
+
+```sh
+npm run output
+```
+
+## Format
+
+```sh
+npm run format
+npm run format:fix
+```
+
+## Lint
+
+```sh
+npm run lint
+npm run lint:fix
+```
+
+## Fancy git commit
+
+follow the instructions in terminal
+
+```sh
+npm run cz
 ```
 
 ## Author
@@ -83,6 +119,3 @@ npm run test
 👤 **Volkan Akin**
 
 - Github: [@volkanakinpasa](https://github.com/volkanakinpasa)
-
-_This README was generated with ❤️ by
-[readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

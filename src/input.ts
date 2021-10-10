@@ -1,4 +1,6 @@
 import {
+  EMPTY_CHAR,
+  SPACE_CHAR,
   TEST_CASE_BITMAP_SIZE_OUT_OF_RANGE_ERROR_MESSAGE,
   TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE,
 } from './constants';
@@ -62,7 +64,7 @@ const parseLinesIntoTestCases = (
     currentLineIndex++;
     const [lineSize, columnSize] = lines[currentLineIndex]
       .trim()
-      .split(' ')
+      .split(SPACE_CHAR)
       .map(parseInt);
 
     validateLineColumnSize(lineSize, columnSize);
@@ -75,7 +77,7 @@ const parseLinesIntoTestCases = (
 
       return line
         .trim()
-        .split('')
+        .split(EMPTY_CHAR)
         .map((item) => item.trim())
         .map(Number);
     });

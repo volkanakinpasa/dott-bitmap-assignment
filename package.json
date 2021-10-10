@@ -49,6 +49,7 @@
   "name": "@volkanakinpasa/dott-bitmap-assignment",
   "private": true,
   "scripts": {
+    "output":"run-s build && node ./lib/index.js",
     "build": "run-s clean build:*",
     "build:ts": "tsc --project tsconfig.production.json",
     "build:ts:watch": "tsc --project tsconfig.production.json --watch",

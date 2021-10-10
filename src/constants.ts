@@ -3,3 +3,7 @@ export const TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE =
 
 export const TEST_CASE_BITMAP_SIZE_OUT_OF_RANGE_ERROR_MESSAGE =
   'Bitmap sizes must be in range 1≤x≤182';
+
+export const SPACE_CHAR = ' ';
+export const EMPTY_CHAR = '';
+export const LINE_BREAK = '\r\n';

@@ -1,11 +1,14 @@
 import { parseInput } from '../src/input';
-import { TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE } from './constants';
+import {
+  EMPTY_CHAR,
+  TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE,
+} from './constants';
 import { TestCases } from './types';
 
 describe('input', () => {
   const testCaseCount = 2;
 
-  let input: string = '';
+  let input: string = EMPTY_CHAR;
 
   beforeAll(() => {
     input = `

@@ -1,7 +1,11 @@
 import { Color } from './enums';
 import { Bitmap } from './models/bitmap';
 import { Pixel } from './models/pixel';
-import { PixelDistance, TestCases } from './types';
+import {
+  CalculatedBitmapPixelDistance,
+  PixelDistance,
+  TestCases,
+} from './types';
 
 export const createBitmap = (testCases: TestCases): Bitmap => {
   const { lineSize, columnSize, pixelNumbers } = testCases;
@@ -22,7 +26,7 @@ export const createPixel = (
 ): Pixel =>
   new Pixel(positionX, positionY, !!value ? Color.White : Color.Black);
 
-export const calculateDistances = (bitmap: Bitmap): Array<PixelDistance> => {
+const calculateDistance = (bitmap: Bitmap): Array<PixelDistance> => {
   const pixels: Array<Pixel> = bitmap.getPixels();
 
   return pixels.map((pixel, indexI) => {
@@ -65,23 +69,32 @@ const getNearestDistanceNumber = (
     }
   });
 
-  // for (let indexJ = 0; indexJ < pixels.length; indexJ++) {
-  //   if (pixels[indexJ].getColor() === Color.White) {
-  //     const distance =
-  //       Math.abs(
-  //         pixels[indexI].getPositionI() - pixels[indexJ].getPositionI(),
-  //       ) +
-  //       Math.abs(pixels[indexI].getPositionJ() - pixels[indexJ].getPositionJ());
-
-  //     currentDistance = distance;
-  //     if (!nearestDistance) {
-  //       nearestDistance = distance;
-  //     }
-
-  //     if (distance <= nearestDistance) {
-  //       nearestDistance = distance;
-  //     }
-  //   }
-  // }
   return nearestDistance;
+};
+
+export const calculateDistances = (bitmaps: Array<Bitmap>) => {
+  const calculatedBitmapPixelDistances: Array<CalculatedBitmapPixelDistance> =
+    bitmaps.map((bitmap) => {
+      const pixelDistances: Array<PixelDistance> = calculateDistance(bitmap);
+      return { bitmap, pixelDistances };
+    });
+
+  //todo: refactor this.
+  const result = calculatedBitmapPixelDistances.map((item) => {
+    const arr: number[][] = [];
+    for (let i = 0; i < item.bitmap.getLineSize(); i++) {
+      arr[i] = [];
+      for (let j = 0; j < item.bitmap.getColumnSize(); j++) {
+        const distance = item.pixelDistances.find(
+          (pd) =>
+            pd.pixel.getPositionI() === i + 1 &&
+            pd.pixel.getPositionJ() === j + 1,
+        ).distance;
+        arr[i].push(distance);
+      }
+    }
+    return arr;
+  });
+
+  return result;
 };
