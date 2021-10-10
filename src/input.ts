@@ -1,3 +1,11 @@
+import {
+  TEST_CASE_BITMAP_SIZE_OUT_OF_RANGE_ERROR_MESSAGE,
+  TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE,
+} from './constants';
+import {
+  TestCaseBitmapSizeOutOfRangeError,
+  TestCaseCountOutOfRangeError,
+} from './error';
 import { TestCases } from './types';
 
 const parseInt = (input: string) => {
@@ -14,49 +22,69 @@ const getLines = (input: string): string[] => {
 export const parseInput = (input: string): TestCases[] => {
   const lines: string[] = getLines(input);
 
-  const testCaseLength = parseInt(lines[0]);
+  const testCaseCount = parseInt(lines[0]);
 
-  if (testCaseLength === 0 || testCaseLength > 1000) {
-    throw new Error('test case range must be 1≤t≤1000');
+  validateTestCaseCount(testCaseCount);
+
+  return parseLinesIntoTestCases(testCaseCount, lines);
+};
+
+const validateTestCaseCount = (testCaseCount: number): never | void => {
+  if (testCaseCount === 0 || testCaseCount > 1000) {
+    throw new TestCaseCountOutOfRangeError(
+      TEST_CASE_COUNT_OUT_OF_RANGE_ERROR_MESSAGE,
+    );
   }
+};
+const validateLineColumnSize = (
+  lineSize: number,
+  columnSize: number,
+): never | void => {
+  if (
+    lineSize === 0 ||
+    lineSize > 182 ||
+    columnSize === 0 ||
+    columnSize > 182
+  ) {
+    throw new TestCaseBitmapSizeOutOfRangeError(
+      TEST_CASE_BITMAP_SIZE_OUT_OF_RANGE_ERROR_MESSAGE,
+    );
+  }
+};
 
-  let testCases: Array<TestCases> = [];
-  let currentLine = 1;
-  for (let index = 0; index < testCaseLength; index++) {
-    const [lineSize, columnSize] = lines[currentLine++]
+const parseLinesIntoTestCases = (
+  testCaseCount: number,
+  lines: string[],
+): Array<TestCases> => {
+  let currentLineIndex = 0;
+
+  const cases = Array.apply(null, { length: testCaseCount }).map(() => {
+    currentLineIndex++;
+    const [lineSize, columnSize] = lines[currentLineIndex]
       .trim()
       .split(' ')
       .map(parseInt);
 
-    if (
-      lineSize === 0 ||
-      lineSize > 182 ||
-      columnSize === 0 ||
-      columnSize > 182
-    ) {
-      throw new Error('Bitmap sizes must be 1≤x≤182');
-    }
+    validateLineColumnSize(lineSize, columnSize);
 
-    const pixelNumbers: number[][] = [];
+    const pixelNumbers: number[][] = Array.apply(null, {
+      length: lineSize,
+    }).map(() => {
+      currentLineIndex++;
+      const line = lines[currentLineIndex];
 
-    for (let rowIndex = 0; rowIndex < lineSize; rowIndex++) {
-      const element = lines[currentLine++];
+      return line
+        .trim()
+        .split('')
+        .map((item) => item.trim())
+        .map(Number);
+    });
 
-      pixelNumbers.push(
-        element
-          .trim()
-          .split('')
-          .map((item) => item.trim())
-          .map(Number),
-      );
-    }
-
-    testCases.push({
+    return {
       lineSize,
       columnSize,
       pixelNumbers,
-    });
-  }
-
-  return testCases;
+    };
+  });
+  return cases;
 };
