@@ -1,10 +1,14 @@
 import { LINE_BREAK, SPACE_CHAR } from './constants';
 
-export const print = (outputParam: number[][][]): void => {
-  const result: string = outputParam
-    .map((bitmap) =>
+export const print = (outputParameter: number[][][]): void => {
+  const result: string = outputParameter
+    .map((bitmap: number[][]): string =>
       bitmap
-        .map((line) => line.map((column) => column.toString()).join(SPACE_CHAR))
+        .map((line: number[]): string =>
+          line
+            .map((column: number): string => column.toString())
+            .join(SPACE_CHAR),
+        )
         .join(LINE_BREAK),
     )
     .join(`${LINE_BREAK}${LINE_BREAK}`);

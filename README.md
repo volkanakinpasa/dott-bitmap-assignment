@@ -80,13 +80,13 @@ npm run test:watch
 
 ## To compile TS
 
+for more builds, refer to package.json
+
 ```sh
 npm run build
-npm run build:ts
-npm run build:watch
 ```
 
-## Run in compiled JS and print output
+## Run and print output
 
 ```sh
 npm run output
